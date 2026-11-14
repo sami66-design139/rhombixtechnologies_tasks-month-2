@@ -1,0 +1,72 @@
+
+=== ONLINE QUIZ GAME ===
+1. Register
+2. Login
+3. Exit
+Choice: Choose username: Choose password: Registration successful!
+
+=== ONLINE QUIZ GAME ===
+1. Register
+2. Login
+3. Exit
+Choice: Username: Password: Welcome, sam!
+
+--- Menu (sam) ---
+1. Play quiz
+2. Leaderboard
+3. Logout
+Choice: 
+Choose a topic:
+ 1. Science
+ 2. Computers
+ 3. Geography
+ 4. Math
+ 5. All topics
+Choice: 
+Q1 [Computers]: What does CPU stand for?
+  1) Central Processing Unit
+  2) Computer Personal Unit
+  3) Central Program Utility
+  4) Control Process Unit
+Your answer (1-4): 
+Q2 [Computers]: Which data structure uses LIFO order?
+  1) Queue
+  2) Stack
+  3) Array
+  4) Tree
+Your answer (1-4): 
+Q3 [Computers]: Which number system does a computer use internally?
+  1) Decimal
+  2) Octal
+  3) Binary
+  4) Roman
+Your answer (1-4): 
+===== QUIZ RESULTS =====
+Q1: What does CPU stand for?
+   Your answer   : Central Processing Unit  [Correct]
+Q2: Which data structure uses LIFO order?
+   Your answer   : Queue  [Wrong]
+   Correct answer: Stack
+Q3: Which number system does a computer use internally?
+   Your answer   : Binary  [Correct]
+
+Score: 2/3 (66%)
+
+--- Menu (sam) ---
+1. Play quiz
+2. Leaderboard
+3. Logout
+Choice: 
+--- Leaderboard ---
+1. sam [Computers] - 2
+
+--- Menu (sam) ---
+1. Play quiz
+2. Leaderboard
+3. Logout
+Choice: 
+=== ONLINE QUIZ GAME ===
+1. Register
+2. Login
+3. Exit
+Choice: Goodbye!
