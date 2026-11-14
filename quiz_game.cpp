@@ -17,6 +17,10 @@ struct Question {
 const string USERS_FILE = "users.txt";
 const string SCORES_FILE = "scores.txt";
 
+// Kept in memory so it works even where files are not saved (online compilers)
+map<string,string> g_users;
+vector<tuple<int,string,string>> g_scores;
+
 vector<Question> loadQuestions() {
     return {
         {"Science", "What is the chemical symbol for water?", {"H2O", "CO2", "O2", "NaCl"}, 0},
@@ -41,18 +45,19 @@ map<string,string> loadUsers() {
 }
 
 bool registerUser() {
-    auto users = loadUsers();
+    auto &users = g_users;
     string name, pass;
     cout << "Choose username: "; cin >> name;
     if (users.count(name)) { cout << "Username already taken.\n"; return false; }
     cout << "Choose password: "; cin >> pass;
-    ofstream(USERS_FILE, ios::app) << name << " " << pass << "\n";
+    users[name] = pass;
+    ofstream(USERS_FILE, ios::app) << name << " " << pass << "\n"; // best-effort save
     cout << "Registration successful!\n";
     return true;
 }
 
 string loginUser() {
-    auto users = loadUsers();
+    auto &users = g_users;
     string name, pass;
     cout << "Username: "; cin >> name;
     cout << "Password: "; cin >> pass;
@@ -62,9 +67,7 @@ string loginUser() {
 }
 
 void showLeaderboard() {
-    ifstream f(SCORES_FILE); string n, t; int s, tot;
-    vector<tuple<int,string,string>> rows;
-    while (f >> n >> t >> s >> tot) rows.push_back({s, n, t});
+    auto rows = g_scores;
     sort(rows.rbegin(), rows.rend());
     cout << "\n--- Leaderboard ---\n";
     if (rows.empty()) cout << "No scores yet.\n";
@@ -109,11 +112,15 @@ void playQuiz(const string &user) {
     }
     cout << "\nScore: " << score << "/" << qs.size() << " (" << (100 * score / (int)qs.size()) << "%)\n";
     string label = (c >= 1 && c <= (int)topics.size()) ? topics[c - 1] : "All";
+    g_scores.push_back({score, user, label});
     ofstream(SCORES_FILE, ios::app) << user << " " << label << " " << score << " " << qs.size() << "\n";
 }
 
 int main() {
     string user;
+    g_users = loadUsers(); // load saved accounts if a file exists
+    { ifstream f(SCORES_FILE); string n, t; int sc, tot;
+      while (f >> n >> t >> sc >> tot) g_scores.push_back({sc, n, t}); }
     while (true) {
         if (user.empty()) {
             cout << "\n=== ONLINE QUIZ GAME ===\n1. Register\n2. Login\n3. Exit\nChoice: ";
